@@ -1,0 +1,40 @@
+{
+    "src_folders": ["acceptance/endpoint_tests/"],
+    "page_objects_path" : "acceptance/page_objects/",
+
+    "output_folder": "acceptance/reports",
+    "selenium": {
+        "start_process": true,
+        "server_path": "node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.1.0.jar",
+        "host": "127.0.0.1",
+        "port": 4444,
+        "log_path": "acceptance/reports",
+        "cli_args": {
+            "webdriver.chrome.driver": "node_modules/chromedriver/lib/chromedriver/chromedriver"
+        }
+    },
+
+    "test_settings": {
+        "default": {
+            "launch_url": "http://localhost:8000",
+            "selenium_port": 4444,
+            "selenium_host": "localhost",
+            "skip_testcases_on_fail": false,
+            "silent": true,
+            "screenshots" : {
+                "enabled" : false,
+                "on_failure":false,
+                "path" : "acceptance/reports/screenshots/"
+            },
+            "desiredCapabilities": {
+                "browserName": "chrome"
+            }
+        },
+
+        "chrome": {
+            "desiredCapabilities": {
+                "browserName": "chrome"
+            }
+        }
+    }
+}
