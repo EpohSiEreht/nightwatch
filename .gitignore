@@ -3,4 +3,5 @@ acceptance/reports
 
 #webstorm ignores
 .DS_Store
+acceptance/.DS_Store
 .idea/
