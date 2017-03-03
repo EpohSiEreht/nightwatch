@@ -4,7 +4,7 @@
   "description": "A simple testing environment using nightwatch.js and selenium webdriver.",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch"
+    "test": "./node_modules/.bin/nightwatch -e default,firefox"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.22.0",
     "chromedriver": "^2.27.3",
+    "geckodriver": "^1.4.0",
     "nightwatch": "^0.9.12",
     "selenium-server-standalone-jar": "^3.1.0"
   }

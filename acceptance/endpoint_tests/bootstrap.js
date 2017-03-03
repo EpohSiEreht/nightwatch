@@ -1,29 +1,21 @@
+"use strict";
 // Require static data that can be injected into your test functions
 const bootstrap = require('../static_data/bootstrap_data');
 
 module.exports = {
-    // List your tests here
+    // List your tests here without Page Object Model
     'Check Page Title' : (browser) => {
         browser
             .url(bootstrap.url)
+            .waitForElementVisible('body')
             .assert.title(bootstrap.title)
             .end();
-    },
-
-    'Check Page Title using Page Object Model' : (browser) => {
-        // Page object models can be utilized by declaring browser.page.file_name.js in the page_objects directory
-        const bootstrapPage = browser.page.bootstrap_pom();
-
-        bootstrapPage
-            .navigate()
-            .verifyTitle(bootstrap.title);
-
-        browser.end();
     },
 
     'Check navbar text' : (browser) => {
         browser
             .url(bootstrap.url)
+            .waitForElementVisible('body')
             .assert.containsText('.navbar-header a', bootstrap.navbarText[0])
             .assert.containsText('.nav.navbar-nav li:nth-of-type(1) a', bootstrap.navbarText[1])
             .assert.containsText('.nav.navbar-nav li:nth-of-type(2) a', bootstrap.navbarText[2])
@@ -36,12 +28,26 @@ module.exports = {
             .end();
     },
 
+    // List your tests here with Page Object Models
+    'Check Page Title using Page Object Model' : (browser) => {
+        // Page object models can be utilized by declaring browser.page.file_name.js in the page_objects directory
+        const bootstrapPage = browser.page.bootstrap_pom();
+
+        bootstrapPage
+            .navigate()
+            .waitForElementVisible('body')
+            .verifyTitle(bootstrap.title, bootstrapPage);
+
+        browser.end();
+    },
+
     'Check navbar text using Page Object Model' : (browser) => {
         const bootstrapPage = browser.page.bootstrap_pom();
 
         bootstrapPage
             .navigate()
-            .verifyNavBarText(bootstrap.navbarText)
+            .waitForElementVisible('body')
+            .verifyNavBarText(bootstrap.navbarText, bootstrapPage);
 
         browser.end();
     },

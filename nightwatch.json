@@ -10,13 +10,18 @@
         "port": 4444,
         "log_path": "acceptance/reports",
         "cli_args": {
-            "webdriver.chrome.driver": "node_modules/chromedriver/lib/chromedriver/chromedriver"
+            "webdriver.chrome.driver": "node_modules/chromedriver/lib/chromedriver/chromedriver",
+            "webdriver.gecko.profile" : "node_modules/geckodriver/geckodriver"
         }
     },
-
+    "live_output" : true,
+    "test_workers": {
+        "enabled": true,
+        "workers": "auto"
+    },
     "test_settings": {
         "default": {
-            "launch_url": "http://localhost:8000",
+            "launch_url": "http://getbootstrap.com/",
             "selenium_port": 4444,
             "selenium_host": "localhost",
             "skip_testcases_on_fail": false,
@@ -24,16 +29,20 @@
             "screenshots" : {
                 "enabled" : false,
                 "on_failure":false,
-                "path" : "acceptance/reports/screenshots/"
+                "path" : "test/acceptance/reports/screenshots/"
+            },
+            "globals": {
+                "waitForConditionTimeout": 5000
             },
             "desiredCapabilities": {
-                "browserName": "chrome"
+                "browserName" : "chrome"
             }
         },
-
-        "chrome": {
+        "firefox": {
             "desiredCapabilities": {
-                "browserName": "chrome"
+                "browserName": "firefox",
+                "marionette": true,
+                "javascriptEnabled": true
             }
         }
     }

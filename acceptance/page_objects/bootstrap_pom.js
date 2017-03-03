@@ -1,14 +1,28 @@
+"use strict";
+var customCommands = {
+    nthTypeSelector: function(elementName, i, browser) {
+        // Lets you dynamically selector the nth-of-type without having to write down every instance of the element in the page object model selector list
+        var element = browser.elements[elementName.slice(1)];
+        return element.selector + `:nth-of-type(${i+1})`;
+    },
+    addChildEl: function(elementName, childEl, browser) {
+        // Lets you grab the selector class/id and concatenate a child css selector
+        var element = browser.elements[elementName.slice(1)];
+        // If elementName isn't in @elementSelector format, just return the elementName
+        if(element === undefined) {
+            return elementName + ' ' + childEl;
+        }
+        return element.selector + ' ' + childEl;
+    }
+};
+
 // Assign an object of commands with various tests
 const testCommands = {
-    verifyTitle: function(pageTitle) {
-        return this.assert.title(pageTitle);
-    },
+    verifyTitle: (pageTitle, browser) => { browser.assert.title(pageTitle) },
 
-    verifyNavBarText: function(text) {
-        var that = this;
-
-        return text.forEach(function(result, i) {
-            that.assert.containsText(`@navbarText${i}`, result);
+    verifyNavBarText: (text, browser) => {
+        return text.forEach((result, i) => {
+            browser.assert.containsText(`@navbarText${i}`, result);
         });
     },
 
@@ -16,7 +30,7 @@ const testCommands = {
 
 module.exports = {
     // List your commands objects in the commands array
-    commands: [testCommands],
+    commands: [customCommands, testCommands],
     // This url will let nightwatch know where to navigate() using the page object model
     url: function() {
         return 'http://getbootstrap.com';
